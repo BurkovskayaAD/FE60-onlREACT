@@ -1,0 +1,26 @@
+.primary{
+    padding: 10px;
+    background-color: blue;
+    color: white;
+}
+
+.primary:hover {
+    background-color: rgb(76, 76, 171);
+}
+
+.primary:disabled {
+    background-color: rgb(130, 130, 130);
+}
+
+
+.secondary{
+    padding: 10px;
+    background-color: rgb(165, 165, 165);
+    color: rgb(39, 39, 39);
+}
+
+.secondary2{
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+}

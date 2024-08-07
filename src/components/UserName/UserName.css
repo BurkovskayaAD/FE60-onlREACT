@@ -1,0 +1,18 @@
+.container-username {
+    width: 200px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.container-username__inicial {
+    color: white;
+    background-color: rgb(105, 105, 233);
+    padding: 10px;
+}
+
+.container-username__fullname {
+    color: white;
+    padding: 10px;
+}
