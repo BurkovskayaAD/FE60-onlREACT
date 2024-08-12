@@ -1,0 +1,14 @@
+.textarea {
+    width: 1120px;
+    height: 245px;
+    border-radius: 2px;
+    font-family: "Inter", sans-serif;
+    border: none;
+    padding: 20px;
+    font-size: 16px;
+    resize: none;
+}
+
+.textarea:focus {
+    outline: 2px solid grey;
+}
