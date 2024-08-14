@@ -1,0 +1,28 @@
+.container-username {
+    width: 250px;
+    height: 84px;
+    background-color: #2231AA;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* padding: 10px; */
+}
+.container-username__inicial {
+    color: #fff;    
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 34px;
+    text-align: center;
+    background-color: #5360CD;
+    padding: 7px 10px;
+    border-radius: 3px;
+}
+.container-username__fullname {
+    color: #fff;
+    /* width: 104px; */
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 34px;
+    text-align: center;
+    padding: 7px 10px;
+}

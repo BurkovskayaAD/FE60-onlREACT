@@ -1,0 +1,24 @@
+.header {
+    width: 100%;
+    height: 84px;
+    background-color: rgba(34, 49, 170, 1);
+    display: flex;
+    justify-content: space-between;
+}
+.header-rigth {
+    display: flex;
+}
+
+.my-icon {
+    color: white;
+    font-size: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}

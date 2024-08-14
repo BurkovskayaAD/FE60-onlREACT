@@ -1,0 +1,36 @@
+.container {
+    width: 1170px;
+    margin: 0 auto;
+}
+
+.container-title {
+    font-family: "Inter";
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 80px;
+    padding-top: 80px;
+}
+
+.dark-title {
+    color: beige;
+}
+
+.ligth-title {
+    color: rgb(0, 0, 0);
+}
+
+.container-photo {
+    width: 992px;
+    height: 518px;
+    object-fit: cover;
+    display: block;
+    margin: 30px auto;
+}
+
+.container-desription {
+    width: 922px;
+    margin: 0 auto;
+    font-family: Inter;
+    font-size: 18px;
+    line-height: 32px;
+}
