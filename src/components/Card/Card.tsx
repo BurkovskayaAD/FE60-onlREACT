@@ -2,13 +2,7 @@ import './Card.css'
 
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
-
-interface ITodo {
-    id: number,
-    text: string,
-    date: string,
-    isChecked: boolean
-}
+import { ITodo } from '../../interfaces';
 
 function Card({oneTodo, remove, changeTodo}: {oneTodo: ITodo, remove: (value:number) => void, changeTodo: (value:number) => void}) {
     return ( 

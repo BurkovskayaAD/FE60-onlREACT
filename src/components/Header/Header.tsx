@@ -1,39 +1,14 @@
 import { useEffect, useState } from 'react';
 import './Header.css';
 
-function Header({onChangeTodo}: {onChangeTodo: any}) {
+function Header({inputText, setInputText, addTodo, deleteAllTodo}: 
+    {
+        inputText: string, 
+        setInputText: (value: string) => void, 
+        addTodo: () => void, 
+        deleteAllTodo: () => void
+    }) {
 
-    interface ITodo {
-        id: number,
-        text: string,
-        date: string,
-        isChecked: boolean
-    }
-
-    const [inputText, setInputText] = useState("")
-    const [todos, setTodos] = useState<ITodo[]>([])
-
-    useEffect(() => {
-        onChangeTodo(todos)
-    }, [todos])
-
-    function addTodo() {
-        if (inputText !== "") {
-            let formatDate = String(new Date()).slice(4, 10);
-            let todoObject = {
-                id: Date.now(),
-                text: inputText,
-                date: formatDate,
-                isChecked: false
-            }
-            setTodos([...todos, todoObject]);
-            setInputText("");
-        }
-    }
-
-    function deleteAllTodo() {
-        setTodos([]);
-    }
 
     return ( 
         <div className='header'>
