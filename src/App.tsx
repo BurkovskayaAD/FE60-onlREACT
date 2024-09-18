@@ -3,7 +3,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux } from './slice/todo';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -34,9 +34,9 @@ function App() {
       setInputText("");
   }
 
-  function deleteAllTodo() {
-      // setTodos([]);
-  }
+  // function deleteAllTodo() {
+  //     dispatch(deleteAllTodoRedux())
+  // }
 
   function remove(id: number) {
     dispatch(removeTodoRedux(id))
@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <div className='container'>
-        <Header inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={deleteAllTodo}></Header>
+        <Header inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={() => dispatch(deleteAllTodoRedux())}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
             {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}

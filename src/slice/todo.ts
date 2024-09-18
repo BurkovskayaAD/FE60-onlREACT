@@ -8,10 +8,7 @@ const todoSlice = createSlice({
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
-            // console.log(current(state))
-            // console.log(payload)
             state.todo.push(payload);
-            // console.log(current(state))
         },
         removeTodoRedux(state: any, {payload}: {payload: any}) {
             const index = state.todo.findIndex((item: ITodo) => item.id === payload)
@@ -22,6 +19,9 @@ const todoSlice = createSlice({
             if (current != undefined) {
                 current.isChecked = !current.isChecked;
             }
+        },
+        deleteAllTodoRedux(state: any) {
+            state.todo.length = 0;
         }
     }
 })
@@ -30,24 +30,4 @@ const todoSlice = createSlice({
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux, changeTodoRedux} = actions;
-
-
-
-
-
-
-// function addTodo() {
-//     if (inputText !== "") {
-//         let formatDate = String(new Date()).slice(4, 10);
-//         let todoObject = {
-//             id: Date.now(),
-//             text: inputText,
-//             date: formatDate,
-//             isChecked: false
-//         }
-//         // состояние не должно изменяться напрямую
-//         setTodos([...todos, todoObject]);
-//     }
-//     setInputText("");
-// }
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux} = actions;
