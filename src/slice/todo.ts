@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { ITodo } from "../interfaces";
 
 const todoSlice = createSlice({
     name: "todo",
@@ -11,6 +12,10 @@ const todoSlice = createSlice({
             // console.log(payload)
             state.todo.push(payload);
             // console.log(current(state))
+        },
+        removeTodoRedux(state: any, {payload}: {payload: any}) {
+            const index = state.todo.findIndex((item: ITodo) => item.id === payload)
+            state.todo.splice(index, 1);
         }
     }
 })
@@ -19,7 +24,7 @@ const todoSlice = createSlice({
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux} = actions;
+export const {addTodoRedux, removeTodoRedux} = actions;
 
 
 
