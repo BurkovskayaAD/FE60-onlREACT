@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
-import { useEffect, useState } from 'react';
-import { addTodoRedux, removeTodoRedux } from './slice/todo';
+import { useState } from 'react';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -43,12 +43,7 @@ function App() {
   }
 
   function changeTodo(id: number) {
-    // const newTodos = [...todos];
-    // const current = newTodos.find(item => item.id === id);
-    // if (current != undefined) {
-    //   current.isChecked = !current.isChecked;
-    // }
-    // setTodos(newTodos);
+    dispatch(changeTodoRedux(id))
   }
 
   return (

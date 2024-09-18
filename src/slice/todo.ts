@@ -16,6 +16,12 @@ const todoSlice = createSlice({
         removeTodoRedux(state: any, {payload}: {payload: any}) {
             const index = state.todo.findIndex((item: ITodo) => item.id === payload)
             state.todo.splice(index, 1);
+        },
+        changeTodoRedux(state: any, {payload}: {payload: any}) {
+            const current = state.todo.find((item: ITodo) => item.id === payload);
+            if (current != undefined) {
+                current.isChecked = !current.isChecked;
+            }
         }
     }
 })
@@ -24,7 +30,7 @@ const todoSlice = createSlice({
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux} = actions;
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux} = actions;
 
 
 
