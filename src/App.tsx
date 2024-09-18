@@ -1,7 +1,7 @@
 import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ITodo {
   id: number,
@@ -13,7 +13,14 @@ interface ITodo {
 function App() {
 
   const [inputText, setInputText] = useState("");
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [todos, setTodos] = useState(() => {
+    let todoFromLS = localStorage.getItem("todos");
+    return todoFromLS ? JSON.parse(todoFromLS) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
 
   function addTodo() {
       if (inputText !== "") {
@@ -35,7 +42,7 @@ function App() {
   }
 
   function remove(id: number) {
-    const newTodos = todos.filter((todo) => {
+    const newTodos = todos.filter((todo:ITodo) => {
       return todo.id !== id;
     });
     setTodos(newTodos);
@@ -56,7 +63,7 @@ function App() {
         <Header inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={deleteAllTodo}></Header>
           {todos.length > 0 ? (
             <div className='card-container'>
-            {todos.map((item, index) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+            {todos.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
           </div>
           ): null}
       </div>
