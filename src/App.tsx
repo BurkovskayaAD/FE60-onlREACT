@@ -17,7 +17,9 @@ function App() {
   const [inputText, setInputText] = useState("");
 
   const dispatch = useDispatch();
-  const todos = useSelector((state: any) => state.todo)
+
+  const todos = useSelector((state: any) => state.todo);
+  // const todoCount = useSelector ((state: any) => state.count);
 
   function addTodo() {
       if (inputText !== "") {
@@ -46,10 +48,18 @@ function App() {
     dispatch(changeTodoRedux(id))
   }
 
+
   return (
     <>
       <div className='container'>
-        <Header inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={() => dispatch(deleteAllTodoRedux())}></Header>
+        <Header
+            inputText={inputText}
+            setInputText={setInputText}
+            addTodo={addTodo}
+            deleteAllTodo={() => {
+                dispatch(deleteAllTodoRedux());
+            }}
+            quantityPost={todos.todo.isChecked}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
             {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}

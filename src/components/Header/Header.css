@@ -18,3 +18,10 @@
     background-color: rgb(255, 255, 255);
     border-radius: 40px;
 }
+
+.header__quantity{
+    padding: 10px;
+}
+span{
+    max-width: 110px;
+}
