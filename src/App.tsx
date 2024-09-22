@@ -47,6 +47,9 @@ function App() {
     dispatch(changeTodoRedux(id))
   }
 
+  function countCompletedTodos() {
+      return todos.todo.filter((item: ITodo) => item.isChecked).length;
+  }
 
   return (
     <>
@@ -58,7 +61,8 @@ function App() {
             deleteAllTodo={() => {
                 dispatch(deleteAllTodoRedux());
             }}
-            quantityPost={todos.todo.length}></Header>
+            quantityPost={todos.todo.length}
+            completedCount={countCompletedTodos()}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
             {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}

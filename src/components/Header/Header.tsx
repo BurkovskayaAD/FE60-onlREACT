@@ -1,12 +1,13 @@
 import './Header.css';
 
-function Header({inputText, setInputText, addTodo, deleteAllTodo, quantityPost}:
+function Header({inputText, setInputText, addTodo, deleteAllTodo, quantityPost, completedCount}:
     {
         inputText: string, 
         setInputText: (value: string) => void, 
         addTodo: () => void, 
         deleteAllTodo: () => void,
         quantityPost: number;
+        completedCount: number;
     }) {
 
 
@@ -20,7 +21,7 @@ function Header({inputText, setInputText, addTodo, deleteAllTodo, quantityPost}:
             </input>
             <button className='header__button' onClick={addTodo}>Add</button>
             <span>number of all posts: {quantityPost}</span>
-            <span>number of completed posts: </span>
+            <span>number of completed posts: {completedCount}</span>
         </div>
     );
 }
