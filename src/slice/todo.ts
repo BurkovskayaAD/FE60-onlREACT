@@ -4,7 +4,7 @@ import { ITodo } from "../interfaces";
 const todoSlice = createSlice({
     name: "todo",
     initialState: {
-        todo: [],
+        todo: []
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
@@ -23,7 +23,7 @@ const todoSlice = createSlice({
         },
         deleteAllTodoRedux(state: any) {
             state.todo.length = 0;
-        },
+        }
 
     }
 })

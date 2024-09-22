@@ -19,7 +19,6 @@ function App() {
   const dispatch = useDispatch();
 
   const todos = useSelector((state: any) => state.todo);
-  // const todoCount = useSelector ((state: any) => state.count);
 
   function addTodo() {
       if (inputText !== "") {
@@ -59,7 +58,7 @@ function App() {
             deleteAllTodo={() => {
                 dispatch(deleteAllTodoRedux());
             }}
-            quantityPost={todos.todo.isChecked}></Header>
+            quantityPost={todos.todo.length}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
             {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
