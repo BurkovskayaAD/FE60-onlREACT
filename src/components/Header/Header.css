@@ -2,6 +2,17 @@
     box-sizing: border-box;
     margin: 20px;
     display: flex;
+    flex-direction: column;
+}
+
+.header-top{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.header-bottom{
+    display: flex;
     justify-content: space-between;
 }
 
@@ -21,7 +32,4 @@
 
 .header__quantity{
     padding: 10px;
-}
-span{
-    max-width: 110px;
 }

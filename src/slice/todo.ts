@@ -4,7 +4,8 @@ import { ITodo } from "../interfaces";
 const todoSlice = createSlice({
     name: "todo",
     initialState: {
-        todo: []
+        todo: [],
+        search: ""
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
@@ -23,6 +24,9 @@ const todoSlice = createSlice({
         },
         deleteAllTodoRedux(state: any) {
             state.todo.length = 0;
+        },
+        setSearchRedux(state: any, {payload}: {payload: any}){
+            state.search = payload;
         }
 
     }
@@ -32,4 +36,4 @@ const todoSlice = createSlice({
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux} = actions;
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, setSearchRedux} = actions;

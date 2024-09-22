@@ -3,7 +3,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux } from './slice/todo';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, setSearchRedux } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -17,8 +17,10 @@ function App() {
   const [inputText, setInputText] = useState("");
 
   const dispatch = useDispatch();
-
   const todos = useSelector((state: any) => state.todo);
+
+  const searchText = todos.search;
+  const filteredTodos = todos.todo.filter((item: ITodo) => item.text.toLowerCase().includes(searchText.toLowerCase()));
 
   function addTodo() {
       if (inputText !== "") {
@@ -48,8 +50,9 @@ function App() {
   }
 
   function countCompletedTodos() {
-      return todos.todo.filter((item: ITodo) => item.isChecked).length;
+      return filteredTodos.filter((item: ITodo) => item.isChecked).length;
   }
+
 
   return (
     <>
@@ -61,16 +64,18 @@ function App() {
             deleteAllTodo={() => {
                 dispatch(deleteAllTodoRedux());
             }}
-            quantityPost={todos.todo.length}
-            completedCount={countCompletedTodos()}></Header>
+            quantityPost={filteredTodos.length}
+            completedCount={countCompletedTodos()}
+            searchText ={searchText}
+            setSearch={(value) => dispatch(setSearchRedux(value))}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
-            {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+            {filteredTodos.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
           </div>
           ): null}
       </div>
     </>
-    
+
   );
 }
 
