@@ -20,7 +20,9 @@ function App() {
   const todos = useSelector((state: any) => state.todo);
 
   const searchText = todos.search;
-  const filteredTodos = todos.todo.filter((item: ITodo) => item.text.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredTodos = todos.filteredTodos || [];
+  const completedCount = todos.completedCount;
+
 
   function addTodo() {
       if (inputText !== "") {
@@ -49,10 +51,9 @@ function App() {
     dispatch(changeTodoRedux(id))
   }
 
-  function countCompletedTodos() {
-      return filteredTodos.filter((item: ITodo) => item.isChecked).length;
-  }
-
+  // function countCompletedTodos() {
+  //     return filteredTodos.filter((item: ITodo) => item.isChecked).length;
+  // }
 
   return (
     <>
@@ -65,7 +66,7 @@ function App() {
                 dispatch(deleteAllTodoRedux());
             }}
             quantityPost={filteredTodos.length}
-            completedCount={countCompletedTodos()}
+            completedCount={completedCount}
             searchText ={searchText}
             setSearch={(value) => dispatch(setSearchRedux(value))}></Header>
           {todos.todo.length > 0 ? (
