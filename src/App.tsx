@@ -3,7 +3,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, fetchTodos } from './slice/todo';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, fetchTodos, deleteTodos } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -39,7 +39,7 @@ function App() {
   // }
 
   function remove(id: number) {
-    dispatch(removeTodoRedux(id))
+    dispatch(deleteTodos(id))
   }
 
   function changeTodo(id: number) {
