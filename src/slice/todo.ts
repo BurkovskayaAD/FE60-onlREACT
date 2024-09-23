@@ -8,7 +8,6 @@ const updateFilteredTodosAndCount = (state: any) => {
     state.completedCount = state.todo.filter((item: ITodo) => item.isChecked).length;
 };
 
-
 const todoSlice = createSlice({
     name: "todo",
     initialState: {

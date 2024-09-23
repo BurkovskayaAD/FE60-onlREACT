@@ -68,7 +68,7 @@ function App() {
             quantityPost={filteredTodos.length}
             completedCount={completedCount}
             searchText ={searchText}
-            setSearch={(value) => dispatch(setSearchRedux(value))}></Header>
+            setSearch={(e) => dispatch(setSearchRedux(e))}></Header>
           {todos.todo.length > 0 ? (
             <div className='card-container'>
             {filteredTodos.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
