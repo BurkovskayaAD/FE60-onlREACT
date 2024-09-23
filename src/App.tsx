@@ -3,7 +3,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux } from './slice/todo';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, fetchTodos } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -16,16 +16,16 @@ function App() {
 
   const [inputText, setInputText] = useState("");
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()<any>;
   const todos = useSelector((state: any) => state.todo)
 
   function addTodo() {
       if (inputText !== "") {
-          let formatDate = String(new Date()).slice(4, 10);
+          // let formatDate = String(new Date()).slice(4, 10);
           let todoObject = {
               id: Date.now(),
               text: inputText,
-              date: formatDate,
+              // date: formatDate,
               isChecked: false
           }
           // состояние не должно изменяться напрямую
@@ -46,14 +46,22 @@ function App() {
     dispatch(changeTodoRedux(id))
   }
 
+  function loadTodo() {
+    dispatch(fetchTodos());
+    console.log(todos)
+    console.log(todos.todo)
+  }
+
   return (
     <>
       <div className='container'>
-        <Header inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={() => dispatch(deleteAllTodoRedux())}></Header>
+        <Header loadTodo={loadTodo} inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={() => dispatch(deleteAllTodoRedux())}></Header>
+          {todos.status === "loading" && <h2>Loading...</h2>}
+          {todos.error && <h2>ERROR!!!!</h2>}
           {todos.todo.length > 0 ? (
             <div className='card-container'>
-            {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
-          </div>
+              {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+            </div>
           ): null}
       </div>
     </>

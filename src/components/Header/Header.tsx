@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Header.css';
 
-function Header({inputText, setInputText, addTodo, deleteAllTodo}: 
+function Header({inputText, setInputText, addTodo, deleteAllTodo, loadTodo}: 
     {
         inputText: string, 
         setInputText: (value: string) => void, 
         addTodo: () => void, 
-        deleteAllTodo: () => void
+        deleteAllTodo: () => void,
+        loadTodo: () => void
     }) {
 
 
@@ -19,6 +20,7 @@ function Header({inputText, setInputText, addTodo, deleteAllTodo}:
                     onChange={(e) => setInputText(e.target.value)}>
             </input>
             <button className='header__button' onClick={addTodo}>Add</button>
+            <button className='header__button' onClick={loadTodo}>Load</button>
         </div>
      );
 }
