@@ -21,7 +21,7 @@ function App() {
 
   const searchText = todos.search;
   const filteredTodos = todos.filteredTodos || [];
-  const completedCount = todos.completedCount;
+  // const completedCount = todos.completedCount;
 
 
   function addTodo() {
@@ -51,9 +51,9 @@ function App() {
     dispatch(changeTodoRedux(id))
   }
 
-  // function countCompletedTodos() {
-  //     return filteredTodos.filter((item: ITodo) => item.isChecked).length;
-  // }
+  function countCompletedTodos() {
+      return filteredTodos.filter((item: ITodo) => item.isChecked).length;
+  }
 
   return (
     <>
@@ -66,7 +66,7 @@ function App() {
                 dispatch(deleteAllTodoRedux());
             }}
             quantityPost={filteredTodos.length}
-            completedCount={completedCount}
+            completedCount={countCompletedTodos()}
             searchText ={searchText}
             setSearch={(e) => dispatch(setSearchRedux(e))}></Header>
           {todos.todo.length > 0 ? (
