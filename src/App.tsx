@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
-import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, fetchTodos, deleteTodos } from './slice/todo';
+import { useEffect, useState } from 'react';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux,deleteLastRedux,searchTodo } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -13,56 +13,76 @@ interface ITodo {
 }
 
 function App() {
+  const dispatch = useDispatch()<any>;
+  const todos = useSelector((state: any) => state.todo);
+
 
   const [inputText, setInputText] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [amountTodos,setAmountTodos] = useState(todos.todo.length);
+  const [amountComplitedTodos,setAmountComplitedTodos] = useState(todos.complitedTasks.length);
 
-  const dispatch = useDispatch()<any>;
-  const todos = useSelector((state: any) => state.todo)
+  useEffect(() => {
+    setAmountTodos(todos.todo.length);
+    setAmountComplitedTodos(todos.complitedTasks.length);
+  },[todos]);
 
   function addTodo() {
       if (inputText !== "") {
-          // let formatDate = String(new Date()).slice(4, 10);
+          let formatDate = String(new Date()).slice(4, 10);
           let todoObject = {
               id: Date.now(),
               text: inputText,
-              // date: formatDate,
+              date: formatDate,
               isChecked: false
           }
-          // состояние не должно изменяться напрямую
           dispatch(addTodoRedux(todoObject))
       }
+      
       setInputText("");
-  }
-
-  // function deleteAllTodo() {
-  //     dispatch(deleteAllTodoRedux())
-  // }
-
-  function remove(id: number) {
-    dispatch(deleteTodos(id))
-  }
-
-  function changeTodo(id: number) {
-    dispatch(changeTodoRedux(id))
-  }
-
-  function loadTodo() {
-    dispatch(fetchTodos());
-    console.log(todos)
-    console.log(todos.todo)
+      const input = document.querySelector<HTMLElement>('.header__input');
+      input?.focus();
   }
 
   return (
     <>
       <div className='container'>
-        <Header loadTodo={loadTodo} inputText={inputText} setInputText={setInputText} addTodo={addTodo} deleteAllTodo={() => dispatch(deleteAllTodoRedux())}></Header>
-          {todos.status === "loading" && <h2>Loading...</h2>}
-          {todos.error && <h2>ERROR!!!!</h2>}
-          {todos.todo.length > 0 ? (
+        <Header 
+        inputText={inputText} 
+        setInputText={setInputText}
+        searchText={searchText}
+        setSearchText={setSearchText}
+
+        addTodo={addTodo} 
+        allTask={() => dispatch(searchTodo(setSearchText('')))}
+        deleteAllTodo={() => dispatch(deleteAllTodoRedux())}
+        deleteLast={() => dispatch(deleteLastRedux())}// эта функция не була вызванна через callback и почему-то даже при изменении input выдавалась оишбка
+        amountTodos={amountTodos}
+        amountComplitedTodos={amountComplitedTodos}
+        
+        searchTodo={() => dispatch(searchTodo(searchText))}
+        ></Header>
+          
+          {/* {searchText !== null ? todos.filtredTodo.map((item: ITodo, index: number) => <Card 
+              key={index} 
+              oneTodo={item}  
+              remove={(id) => dispatch(removeTodoRedux(id))} 
+              changeTodo={(id) => dispatch(changeTodoRedux(id))}></Card>) : null } */}
+
+
+          {todos.todo.length > 0 && todos.filtredTodo.length === 0 ? (
             <div className='card-container'>
-              {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+              {todos.todo.length === 0 ? null : todos.todo.map((item: ITodo, index: number) => <Card 
+              key={index} 
+              oneTodo={item} 
+              remove={(id) => dispatch(removeTodoRedux(id))} 
+              changeTodo={(id) => dispatch(changeTodoRedux(id))}></Card>)}
             </div>
-          ): null}
+          ): todos.filtredTodo.map((item: ITodo, index: number) => <Card 
+            key={index} 
+            oneTodo={item}  
+            remove={(id) => dispatch(removeTodoRedux(id))} 
+            changeTodo={(id) => dispatch(changeTodoRedux(id))}></Card>)}
       </div>
     </>
     
