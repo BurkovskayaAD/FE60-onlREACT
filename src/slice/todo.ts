@@ -16,18 +16,26 @@ const todoSlice = createSlice({
         },
         changeTodoRedux(state: any, {payload}: {payload: any}) {
             const current = state.todo.find((item: ITodo) => item.id === payload);
-            if (current != undefined) {
+            if (current !== undefined) {
                 current.isChecked = !current.isChecked;
             }
         },
         deleteAllTodoRedux(state: any) {
             state.todo.length = 0;
-        }
+        },
+        deleteLastTodoRedux(state: any) {
+            state.todo.pop();
+        },
+        showCompletedTodoRedux(state: any) {
+            state.todo = state.todo.filter((item: ITodo) => item.isChecked);
+        },
+        showSearchResultsRedux(state: any, {payload}: {payload: any}) {
+            state.todo = payload;
+        },
     }
 })
-
 
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux} = actions;
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, deleteLastTodoRedux, showCompletedTodoRedux, showSearchResultsRedux} = actions;
