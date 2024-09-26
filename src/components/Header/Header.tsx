@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import './Header.css';
 
-function Header({inputText, setInputText, addTodo, deleteAllTodo, deleteLastTodo, showCompletedTodo, allTodoCount, completedTodoCount, searchText, setSearchText, showSearchResults }: 
+function Header({inputText, setInputText, addTodo, deleteAllTodo, deleteLastTodo, showCompletedTodo, allTodoCount, completedTodoCount, searchText, setSearchText, showSearchResults, showAllTodo }: 
     {
         inputText: string, 
         setInputText: (value: string) => void, 
         addTodo: () => void, 
         deleteAllTodo: () => void,
         deleteLastTodo: () => void,
+        showAllTodo: () => void,
         showCompletedTodo: () => void,
         allTodoCount: number,
         completedTodoCount: number,
@@ -15,7 +16,6 @@ function Header({inputText, setInputText, addTodo, deleteAllTodo, deleteLastTodo
         setSearchText: (value: string) => void,
         showSearchResults: (searchText: string) => void,
     }) {
-
     return ( 
         <div className='header'>
             <div className='header_top'>
@@ -36,20 +36,16 @@ function Header({inputText, setInputText, addTodo, deleteAllTodo, deleteLastTodo
             <div className='header_bottom'>
                 <div className='header_bottom_all'>All: {allTodoCount}</div>
                 <div className='header_bottom_active'>Completed: {completedTodoCount}</div>
+                <button className='header__button' onClick={() => {setSearchText(''); showAllTodo();}}>Show All</button>
                 <button className='header__button' onClick={showCompletedTodo}>Show Active</button>
                 <input 
                     className='header_bottom__input' 
                     placeholder='Search'
                     value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            showSearchResults(searchText);
-                        }
-                    }}></input>
+                    onChange={(e) => {setSearchText(e.target.value); showSearchResults(e.target.value)}}></input>
             </div>
         </div>
-    );
+    )
 }
 
 export default Header;

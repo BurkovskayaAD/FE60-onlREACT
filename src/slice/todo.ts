@@ -4,7 +4,9 @@ import { ITodo } from "../interfaces";
 const todoSlice = createSlice({
     name: "todo",
     initialState: {
-        todo: []
+        todo: [],
+        searchtodo: [],
+        activetodo: [],
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
@@ -27,15 +29,18 @@ const todoSlice = createSlice({
             state.todo.pop();
         },
         showCompletedTodoRedux(state: any) {
-            state.todo = state.todo.filter((item: ITodo) => item.isChecked);
+            state.activetodo = state.todo.filter((item: ITodo) => item.isChecked);
+        },
+        showAllTodoRedux(state: any) {
+            state.searchtodo = [];
+            state.activetodo = [];
         },
         showSearchResultsRedux(state: any, {payload}: {payload: any}) {
-            state.todo = payload;
-        },
+            state.searchtodo = payload;
+        }
     }
 })
-
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, deleteLastTodoRedux, showCompletedTodoRedux, showSearchResultsRedux} = actions;
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, deleteLastTodoRedux, showCompletedTodoRedux, showSearchResultsRedux, showAllTodoRedux} = actions;

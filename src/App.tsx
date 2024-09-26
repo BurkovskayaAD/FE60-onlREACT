@@ -3,7 +3,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, deleteLastTodoRedux, showCompletedTodoRedux, showSearchResultsRedux } from './slice/todo';
+import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, deleteLastTodoRedux, showCompletedTodoRedux, showSearchResultsRedux, showAllTodoRedux } from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -16,16 +16,16 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
-  const todos = useSelector((state: any) => state.todo)
+  const todos = useSelector((state: any) => state.todo);
 
   function addTodo() {
     if (inputText !== "") {
       let formatDate = String(new Date()).slice(4, 10);
       let todoObject = {
-          id: Date.now(),
-          text: inputText,
-          date: formatDate,
-          isChecked: false
+        id: Date.now(),
+        text: inputText,
+        date: formatDate,
+        isChecked: false
       }
       dispatch(addTodoRedux(todoObject))
       setInputText("");
@@ -39,10 +39,27 @@ function App() {
   }
   function showSearchResults(searchText: string) {
     const filteredTodos = todos.todo.filter((item: ITodo) => 
-        item.text.toLowerCase().includes(searchText.toLowerCase())
+      item.text.toLowerCase().includes(searchText.toLowerCase())
     );
     dispatch(showSearchResultsRedux(filteredTodos));
   }
+  function checkShow() {
+    if (searchText !== "") {
+      return (<div className='card-container'>
+        {todos.searchtodo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+      </div>)
+    } 
+    if (todos.activetodo.length > 0) {
+      return (<div className='card-container'>
+        {todos.activetodo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+      </div>)
+    } else {
+      return (<div className='card-container'>
+        {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
+      </div>)
+    }
+}
+
   return (
     <>
       <div className='container'>
@@ -58,12 +75,9 @@ function App() {
             searchText={searchText}
             showSearchResults={showSearchResults}
             setSearchText={setSearchText}
+            showAllTodo={() => dispatch(showAllTodoRedux())}
             ></Header>
-          {todos.todo.length > 0 ? (
-            <div className='card-container'>
-            {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
-          </div>
-          ): null}
+          {todos.todo.length > 0 ? (checkShow()): null}
       </div>
     </>
   );
