@@ -14,6 +14,7 @@
 .header-bottom{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .header__input {
@@ -32,4 +33,11 @@
 
 .header__quantity{
     padding: 10px;
+}
+
+.header__input-search{
+    width: 280px;
+    padding: 10px;
+    border-radius: 40px;
+    border: 2px solid black;
 }

@@ -1,15 +1,18 @@
 import './Header.css';
 
-function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, quantityPost, completedCount, setSearch}:
+function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, quantityPost, completedCount, setSearch, deleteLastTodo, showCompleted, showAll}:
     {
         inputText: string,
         searchText: string,
         setInputText: (value: string) => void, 
         addTodo: () => void, 
         deleteAllTodo: () => void,
-        quantityPost: number;
-        completedCount: number;
-        setSearch: (value: string) => void
+        quantityPost: number,
+        completedCount: number,
+        setSearch: (value: string) => void,
+        deleteLastTodo: () => void,
+        showCompleted: () => void,
+        showAll: () => void
     }) {
 
 
@@ -17,20 +20,23 @@ function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, qu
         <div className='header'>
             <div className='header-top'>
                 <button className='header__button' onClick={deleteAllTodo}>Delete All</button>
+                <button className='header__button' onClick={deleteLastTodo}>Delete Last</button>
                 <input placeholder='Add todo'
                        className='header__input'
                        value={inputText}
-                       onChange={(e) => setInputText(e.target.value)}>
+                       onChange={(event) => setInputText(event.target.value)}>
                 </input>
                 <button className='header__button' onClick={addTodo}>Add</button>
             </div>
             <div className='header-bottom'>
-                <span>number of all posts: {quantityPost}</span>
-                <span>number of completed posts: {completedCount}</span>
+                <span>All: {quantityPost}</span>
+                <span>Completed: {completedCount}</span>
+                <button className='header__button' onClick={showAll}>Show All</button>
+                <button className='header__button' onClick={showCompleted}>Show Completed</button>
                 <input placeholder='Search'
                        className='header__input-search'
                        value={searchText}
-                       onChange = {(event) => setSearch(event.target.value)}>
+                       onChange={(event) => setSearch(event.target.value)}>
                 </input>
             </div>
         </div>

@@ -5,7 +5,9 @@ const updateFilteredTodos = (state: any) => {
     state.filteredTodos = state.todo.filter((item: ITodo) =>
         item.text.toLowerCase().includes(state.search.toLowerCase())
     );
-    // state.completedCount = state.todo.filter((item: ITodo) => item.isChecked).length;
+    state.all = state.filteredTodos.filter((item: ITodo) => item).length;
+    state.completedCount = state.filteredTodos.filter((item: ITodo) => item.isChecked).length;
+    state.completedTodos = state.filteredTodos.filter((item:ITodo) => item.isChecked);
 };
 
 const todoSlice = createSlice({
@@ -14,7 +16,9 @@ const todoSlice = createSlice({
         todo: [],
         search: "",
         filteredTodos: [],
-        // completedCount: 0,
+        completedTodos: [],
+        all: 0,
+        completedCount: 0,
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
@@ -36,17 +40,24 @@ const todoSlice = createSlice({
         deleteAllTodoRedux(state: any) {
             state.todo.length = 0;
             state.filteredTodos.length = 0;
+            state.completedTodos.length = 0;
             updateFilteredTodos(state);
         },
         setSearchRedux(state: any, {payload}: {payload: any}){
             state.search = payload;
             updateFilteredTodos(state);
-        }
-
+        },
+        deleteLastTodoRedux(state: any) {
+            state.todo.pop();
+            updateFilteredTodos(state);
+        },
+        toggleShowCompletedRedux(state: any){
+            updateFilteredTodos(state);
+        },
     }
 })
 
 const {actions, reducer} = todoSlice;
 
 export default reducer;
-export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, setSearchRedux} = actions;
+export const {addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, setSearchRedux, deleteLastTodoRedux, toggleShowCompletedRedux} = actions;
