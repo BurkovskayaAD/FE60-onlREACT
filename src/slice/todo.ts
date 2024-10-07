@@ -69,13 +69,12 @@ const todoSlice = createSlice({
         return builder.addCase(fetchTodos.pending, (state: any) => {
             state.status = "loading";
             state.error = null;
-            console.log("loading");
         }),
         builder.addCase(fetchTodos.fulfilled, (state: any, {payload}: {payload: any}) => {
             state.status = "resolved";
             state.error = null;
             state.todo = payload;
-            console.log(current(state));
+            updateFilteredTodos(state);
         })
     }
 })
