@@ -1,6 +1,6 @@
 export interface ITodo {
-    id: number, 
-    text: string, 
-    date: string, 
-    isChecked: boolean
+    id: number,
+    title?: string,
+    completed?: boolean,
+    userId?:number
 }

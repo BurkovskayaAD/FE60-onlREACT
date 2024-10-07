@@ -1,13 +1,21 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-import { ITodo } from "../interfaces";
+import {createAsyncThunk, createSlice, current} from "@reduxjs/toolkit";
+import {ITodo} from "../interfaces";
+
+export const fetchTodos = createAsyncThunk(
+    "todo/fetchTodos",
+    async function (){
+        const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+        return await response.json();
+    }
+)
 
 const updateFilteredTodos = (state: any) => {
     state.filteredTodos = state.todo.filter((item: ITodo) =>
-        item.text.toLowerCase().includes(state.search.toLowerCase())
+        item.title?.toLowerCase().includes(state.search.toLowerCase())
     );
     state.all = state.filteredTodos.filter((item: ITodo) => item).length;
-    state.completedCount = state.filteredTodos.filter((item: ITodo) => item.isChecked).length;
-    state.completedTodos = state.filteredTodos.filter((item:ITodo) => item.isChecked);
+    state.completedCount = state.filteredTodos.filter((item: ITodo) => item.completed).length;
+    state.completedTodos = state.filteredTodos.filter((item:ITodo) => item.completed);
 };
 
 const todoSlice = createSlice({
@@ -19,6 +27,8 @@ const todoSlice = createSlice({
         completedTodos: [],
         all: 0,
         completedCount: 0,
+        status: null,
+        error: null
     },
     reducers: {
         addTodoRedux(state: any, {payload}: {payload: any}) {
@@ -54,6 +64,19 @@ const todoSlice = createSlice({
         toggleShowCompletedRedux(state: any){
             updateFilteredTodos(state);
         },
+    },
+    extraReducers: (builder) => {
+        return builder.addCase(fetchTodos.pending, (state: any) => {
+            state.status = "loading";
+            state.error = null;
+            console.log("loading");
+        }),
+        builder.addCase(fetchTodos.fulfilled, (state: any, {payload}: {payload: any}) => {
+            state.status = "resolved";
+            state.error = null;
+            state.todo = payload;
+            console.log(current(state));
+        })
     }
 })
 

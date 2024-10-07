@@ -1,6 +1,6 @@
 import './Header.css';
 
-function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, quantityPost, completedCount, setSearch, deleteLastTodo, showCompleted, showAll}:
+function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, quantityPost, completedCount, setSearch, deleteLastTodo, showCompleted, showAll, loadTodo}:
     {
         inputText: string,
         searchText: string,
@@ -12,7 +12,8 @@ function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, qu
         setSearch: (value: string) => void,
         deleteLastTodo: () => void,
         showCompleted: () => void,
-        showAll: () => void
+        showAll: () => void,
+        loadTodo: () => void
     }) {
 
 
@@ -27,6 +28,7 @@ function Header({inputText, setInputText, searchText, addTodo, deleteAllTodo, qu
                        onChange={(event) => setInputText(event.target.value)}>
                 </input>
                 <button className='header__button' onClick={addTodo}>Add</button>
+                <button className='header__button' onClick={loadTodo}>Load</button>
             </div>
             <div className='header-bottom'>
                 <span>All: {quantityPost}</span>

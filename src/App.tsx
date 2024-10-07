@@ -3,7 +3,16 @@ import './App.css';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import { useState } from 'react';
-import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, setSearchRedux, deleteLastTodoRedux, toggleShowCompletedRedux } from './slice/todo';
+import {
+    addTodoRedux,
+    removeTodoRedux,
+    changeTodoRedux,
+    deleteAllTodoRedux,
+    setSearchRedux,
+    deleteLastTodoRedux,
+    toggleShowCompletedRedux,
+    fetchTodos
+} from './slice/todo';
 
 interface ITodo {
   id: number,
@@ -18,7 +27,7 @@ function App() {
   const [searchText, setSearch] = useState("");
   const [showCompleted, setShowCompleted] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()<any>;
   const todos = useSelector((state: any) => state.todo);
 
   const filteredTodos = todos.filteredTodos || [];
@@ -64,8 +73,13 @@ function App() {
       setShowCompleted(false);
   }
 
+  function loadTodo(){
+      console.log("aaaaaaa");
+      dispatch(fetchTodos());
+  }
+
 function renderTodos() {
-    const todosToRender = showCompleted ? completedTodos : filteredTodos.length > 0 ? filteredTodos : todos;
+    const todosToRender = showCompleted ? completedTodos : filteredTodos.length > 0 ? filteredTodos : todos.todo;
 
     return (
         <div className='card-container'>
@@ -84,21 +98,22 @@ return (
                 setInputText={setInputText}
                 addTodo={addTodo}
                 deleteAllTodo={() => {
-            dispatch(deleteAllTodoRedux());
-        }}
-        deleteLastTodo = {() => {
-            dispatch(deleteLastTodoRedux())
-        }}
-        quantityPost={all}
-        completedCount={completedCount}
-        showAll={showAllTodos}
-        showCompleted ={showCompletedTodos}
-        searchText ={searchText}
-        setSearch={handleSearchChange}>
-    </Header>
-      {todos.todo.length > 0 ? renderTodos(): null}
-  </div>
-</>
+                    dispatch(deleteAllTodoRedux());
+                }}
+                deleteLastTodo = {() => {
+                    dispatch(deleteLastTodoRedux());
+                }}
+                quantityPost={all}
+                completedCount={completedCount}
+                showAll={showAllTodos}
+                showCompleted ={showCompletedTodos}
+                searchText ={searchText}
+                setSearch={handleSearchChange}
+                loadTodo={loadTodo}>
+            </Header>
+            {todos.todo.length > 0 ? renderTodos(): null}
+        </div>
+    </>
 
 );
 }
