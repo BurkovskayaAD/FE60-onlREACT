@@ -74,7 +74,6 @@ function App() {
   }
 
   function loadTodo(){
-      console.log("aaaaaaa");
       dispatch(fetchTodos());
   }
 
@@ -111,6 +110,8 @@ return (
                 setSearch={handleSearchChange}
                 loadTodo={loadTodo}>
             </Header>
+            {todos.status === "loading" && <h2>Loading...</h2>}
+            {todos.error && <h2>ERROR!!!</h2>}
             {todos.todo.length > 0 ? renderTodos(): null}
         </div>
     </>
