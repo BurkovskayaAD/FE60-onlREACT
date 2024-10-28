@@ -7,7 +7,7 @@ import { addTodoRedux, removeTodoRedux, changeTodoRedux, deleteAllTodoRedux, fet
 
 interface ITodo {
   id: number,
-  text: string,
+  title: string,
   date: string,
   isChecked: boolean
 }
@@ -24,7 +24,7 @@ function App() {
           // let formatDate = String(new Date()).slice(4, 10);
           let todoObject = {
               id: Date.now(),
-              text: inputText,
+              title: inputText,
               // date: formatDate,
               isChecked: false
           }
@@ -59,7 +59,7 @@ function App() {
           {todos.status === "loading" && <h2>Loading...</h2>}
           {todos.error && <h2>ERROR!!!!</h2>}
           {todos.todo.length > 0 ? (
-            <div className='card-container'>
+            <div className='card-container' data-testid="cypress-cardContainer">
               {todos.todo.map((item: ITodo, index: number) => <Card key={index} oneTodo={item} remove={remove} changeTodo={changeTodo}></Card>)}
             </div>
           ): null}

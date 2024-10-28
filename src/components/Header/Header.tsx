@@ -13,13 +13,14 @@ function Header({inputText, setInputText, addTodo, deleteAllTodo, loadTodo}:
 
     return ( 
         <div className='header'>
-            <button className='header__button' onClick={deleteAllTodo}>Delete All</button>
+            <button data-testid="cypress-deleteAllButton" className='header__button' onClick={deleteAllTodo}>Delete All</button>
             <input placeholder='Add todo' 
-                    className='header__input' 
+                    className='header__input'
+                    data-testid="cypress-input" 
                     value={inputText} 
                     onChange={(e) => setInputText(e.target.value)}>
             </input>
-            <button className='header__button' onClick={addTodo}>Add</button>
+            <button data-testid="cypress-addButton" className='header__button' onClick={addTodo}>Add</button>
             <button className='header__button' onClick={loadTodo}>Load</button>
         </div>
      );
